@@ -1,6 +1,6 @@
+from fastapi.middleware.cors import CORSMiddleware
 import os
 from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
 from database import engine
 import models
 
