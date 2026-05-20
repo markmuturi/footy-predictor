@@ -34,7 +34,7 @@ def run(season: int = 2024, batch_size: int = 80):
         print(f"Found {len(finished)} matches without stats for season {season}")
 
         for i, match in enumerate(finished):
-            ingest_fixture_stats(db, match.id, season)
+            ingest_fixture_stats(db, match.id)
             requests_used += 1
             print(f"  [{requests_used} req] Match {match.id} GW{match.matchweek} ({i+1}/{len(finished)})")
             if requests_used >= batch_size:
