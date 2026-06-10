@@ -1,16 +1,18 @@
-import { Routes, Route, NavLink } from 'react-router-dom'
-import Dashboard from './pages/Dashboard'
+import { Routes, Route, NavLink, Link } from 'react-router-dom'
+import Landing from './pages/Landing'
+import Fixtures from './pages/Fixtures'
 import MatchDetail from './pages/MatchDetail'
 import TeamForm from './pages/TeamForm'
 import H2H from './pages/H2H'
 import PlayerStats from './pages/PlayerStats'
-import Fixtures from './pages/Fixtures'
 import Accuracy from './pages/Accuracy'
+import WakeUpBanner from './components/WakeUpBanner'
 
-function NavItem({ to, label }) {
+function NavItem({ to, label, end }) {
   return (
     <NavLink
       to={to}
+      end={end}
       className={({ isActive }) =>
         `px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
           isActive
@@ -27,15 +29,21 @@ function NavItem({ to, label }) {
 export default function App() {
   return (
     <div className="min-h-screen bg-slate-900 text-white">
-      <nav className="bg-slate-800 border-b border-slate-700 px-6 py-3 flex items-center gap-2">
-        <span className="text-emerald-400 font-bold text-lg mr-6">⚽ FootyPredictor</span>
-        <NavItem to="/" label="Dashboard" />
-        <NavItem to="/fixtures" label="Fixtures" />
-        <NavItem to="/accuracy" label="Accuracy" />
+      <WakeUpBanner />
+      <nav className="bg-slate-800 border-b border-slate-700 px-6 py-3 flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <Link to="/" className="text-emerald-400 font-bold text-lg mr-4 hover:text-emerald-300 transition-colors">
+            ⚽ FootyPredictor
+          </Link>
+          <NavItem to="/fixtures" label="Fixtures" />
+        </div>
+        <div className="flex items-center gap-2">
+          <NavItem to="/accuracy" label="Model Accuracy" />
+        </div>
       </nav>
       <main className="max-w-7xl mx-auto px-6 py-8">
         <Routes>
-          <Route path="/" element={<Dashboard />} />
+          <Route path="/" element={<Landing />} />
           <Route path="/fixtures" element={<Fixtures />} />
           <Route path="/match/:id" element={<MatchDetail />} />
           <Route path="/team/:id" element={<TeamForm />} />
@@ -44,6 +52,9 @@ export default function App() {
           <Route path="/accuracy" element={<Accuracy />} />
         </Routes>
       </main>
+      <footer className="border-t border-slate-800 mt-16 py-6 text-center text-slate-600 text-xs">
+        FootyPredictor · EPL 2024/25 · Poisson DC Model · Data via API-Football
+      </footer>
     </div>
   )
 }
